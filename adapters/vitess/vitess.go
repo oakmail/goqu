@@ -1,9 +1,9 @@
-package mysql
+package vitess
 
 import "github.com/stratexio/goqu"
 
 var (
-	placeholder_rune    = '?'
+	placeholder_rune    = ':'
 	quote_rune          = '`'
 	singlq_quote        = '\''
 	default_values_frag = []byte("")
@@ -68,7 +68,7 @@ func (me *DatasetAdapter) SupportsOrderByOnUpdate() bool {
 func newDatasetAdapter(ds *goqu.Dataset) goqu.Adapter {
 	def := goqu.NewDefaultAdapter(ds).(*goqu.DefaultAdapter)
 	def.PlaceHolderRune = placeholder_rune
-	def.IncludePlaceholderNum = false
+	def.IncludePlaceholderNum = true
 	def.QuoteRune = quote_rune
 	def.DefaultValuesFragment = default_values_frag
 	def.True = mysql_true
@@ -80,5 +80,5 @@ func newDatasetAdapter(ds *goqu.Dataset) goqu.Adapter {
 }
 
 func init() {
-	goqu.RegisterAdapter("mysql", newDatasetAdapter)
+	goqu.RegisterAdapter("vitess", newDatasetAdapter)
 }
