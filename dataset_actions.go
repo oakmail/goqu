@@ -11,7 +11,7 @@ func (me *Dataset) ScanStructs(i interface{}) error {
 		ds = ds.Select(i)
 	}
 	sql, args, err := ds.ToSql()
-	return newCrudExec(me.database, err, sql, args...).ScanStructs(i)
+	return newCrudExec(me.database, err, sql, ds, args...).ScanStructs(i)
 }
 
 //Generates the SELECT sql for this dataset and uses Exec#ScanStruct to scan the result into a slice of structs
@@ -25,7 +25,7 @@ func (me *Dataset) ScanStruct(i interface{}) (bool, error) {
 		ds = ds.Select(i)
 	}
 	sql, args, err := ds.ToSql()
-	return newCrudExec(me.database, err, sql, args...).ScanStruct(i)
+	return newCrudExec(me.database, err, sql, ds, args...).ScanStruct(i)
 }
 
 //Generates the SELECT sql for this dataset and uses Exec#ScanVals to scan the results into a slice of primitive values
@@ -33,7 +33,7 @@ func (me *Dataset) ScanStruct(i interface{}) (bool, error) {
 //i: A pointer to a slice of primitive values
 func (me *Dataset) ScanVals(i interface{}) error {
 	sql, args, err := me.ToSql()
-	return newCrudExec(me.database, err, sql, args...).ScanVals(i)
+	return newCrudExec(me.database, err, sql, me, args...).ScanVals(i)
 }
 
 //Generates the SELECT sql for this dataset and uses Exec#ScanVal to scan the result into a primitive value
@@ -41,7 +41,7 @@ func (me *Dataset) ScanVals(i interface{}) error {
 //i: A pointer to a primitive value
 func (me *Dataset) ScanVal(i interface{}) (bool, error) {
 	sql, args, err := me.Limit(1).ToSql()
-	return newCrudExec(me.database, err, sql, args...).ScanVal(i)
+	return newCrudExec(me.database, err, sql, me, args...).ScanVal(i)
 }
 
 //Generates the SELECT COUNT(*) sql for this dataset and uses Exec#ScanVal to scan the result into an int64.
@@ -66,7 +66,7 @@ func (me *Dataset) Pluck(i interface{}, col string) error {
 //See Dataset#UpdateSql for arguments
 func (me *Dataset) Update(i interface{}) *CrudExec {
 	sql, args, err := me.ToUpdateSql(i)
-	return newCrudExec(me.database, err, sql, args...)
+	return newCrudExec(me.database, err, sql, me, args...)
 }
 
 //Generates the UPDATE sql, and returns an Exec struct with the sql set to the INSERT statement
@@ -75,12 +75,12 @@ func (me *Dataset) Update(i interface{}) *CrudExec {
 //See Dataset#InsertSql for arguments
 func (me *Dataset) Insert(i ...interface{}) *CrudExec {
 	sql, args, err := me.ToInsertSql(i...)
-	return newCrudExec(me.database, err, sql, args...)
+	return newCrudExec(me.database, err, sql, me, args...)
 }
 
 //Generates the DELETE sql, and returns an Exec struct with the sql set to the DELETE statement
 //    db.From("test").Where(I("id").Gt(10)).Exec()
 func (me *Dataset) Delete() *CrudExec {
 	sql, args, err := me.ToDeleteSql()
-	return newCrudExec(me.database, err, sql, args...)
+	return newCrudExec(me.database, err, sql, me, args...)
 }

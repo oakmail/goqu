@@ -196,7 +196,7 @@ func (me *Database) QueryRow(query string, args ...interface{}) *sql.Row {
 //
 //args...: for any placeholder parameters in the query
 func (me *Database) ScanStructs(i interface{}, query string, args ...interface{}) error {
-	exec := newCrudExec(me, nil, query, args...)
+	exec := newCrudExec(me, nil, query, nil, args...)
 	return exec.ScanStructs(i)
 }
 
@@ -208,7 +208,7 @@ func (me *Database) ScanStructs(i interface{}, query string, args ...interface{}
 //
 //args...: for any placeholder parameters in the query
 func (me *Database) ScanStruct(i interface{}, query string, args ...interface{}) (bool, error) {
-	exec := newCrudExec(me, nil, query, args...)
+	exec := newCrudExec(me, nil, query, nil, args...)
 	return exec.ScanStruct(i)
 }
 
@@ -220,7 +220,7 @@ func (me *Database) ScanStruct(i interface{}, query string, args ...interface{})
 //
 //args...: for any placeholder parameters in the query
 func (me *Database) ScanVals(i interface{}, query string, args ...interface{}) error {
-	exec := newCrudExec(me, nil, query, args...)
+	exec := newCrudExec(me, nil, query, nil, args...)
 	return exec.ScanVals(i)
 }
 
@@ -232,7 +232,7 @@ func (me *Database) ScanVals(i interface{}, query string, args ...interface{}) e
 //
 //args...: for any placeholder parameters in the query
 func (me *Database) ScanVal(i interface{}, query string, args ...interface{}) (bool, error) {
-	exec := newCrudExec(me, nil, query, args...)
+	exec := newCrudExec(me, nil, query, nil, args...)
 	return exec.ScanVal(i)
 }
 
@@ -251,7 +251,6 @@ func (me *TxDatabase) queryAdapter(dataset *Dataset) Adapter {
 //Creates a new Dataset for querying a Database.
 func (me *TxDatabase) From(cols ...interface{}) *Dataset {
 	return withDatabase(me).From(cols...)
-
 }
 
 //Sets the logger
@@ -299,25 +298,25 @@ func (me *TxDatabase) QueryRow(query string, args ...interface{}) *sql.Row {
 
 //See Database#ScanStructs
 func (me *TxDatabase) ScanStructs(i interface{}, query string, args ...interface{}) error {
-	exec := newCrudExec(me, nil, query, args...)
+	exec := newCrudExec(me, nil, query, nil, args...)
 	return exec.ScanStructs(i)
 }
 
 //See Database#ScanStruct
 func (me *TxDatabase) ScanStruct(i interface{}, query string, args ...interface{}) (bool, error) {
-	exec := newCrudExec(me, nil, query, args...)
+	exec := newCrudExec(me, nil, query, nil, args...)
 	return exec.ScanStruct(i)
 }
 
 //See Database#ScanVals
 func (me *TxDatabase) ScanVals(i interface{}, query string, args ...interface{}) error {
-	exec := newCrudExec(me, nil, query, args...)
+	exec := newCrudExec(me, nil, query, nil, args...)
 	return exec.ScanVals(i)
 }
 
 //See Database#ScanVal
 func (me *TxDatabase) ScanVal(i interface{}, query string, args ...interface{}) (bool, error) {
-	exec := newCrudExec(me, nil, query, args...)
+	exec := newCrudExec(me, nil, query, nil, args...)
 	return exec.ScanVal(i)
 }
 

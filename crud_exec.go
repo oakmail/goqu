@@ -20,6 +20,7 @@ type (
 		database database
 		Sql      string
 		Args     []interface{}
+		ds       *Dataset
 		err      error
 	}
 	selectResults []Record
@@ -28,8 +29,8 @@ type (
 var struct_map_cache = make(map[interface{}]columnMap)
 var struct_map_cache_lock = sync.Mutex{}
 
-func newCrudExec(database database, err error, sql string, args ...interface{}) *CrudExec {
-	return &CrudExec{database: database, err: err, Sql: sql, Args: args}
+func newCrudExec(database database, err error, sql string, ds *Dataset, args ...interface{}) *CrudExec {
+	return &CrudExec{database: database, err: err, Sql: sql, ds: ds, Args: args}
 }
 
 func (me CrudExec) Exec() (sql.Result, error) {
@@ -170,6 +171,33 @@ func (me CrudExec) ScanVal(i interface{}) (bool, error) {
 		return false, err
 	}
 	return count != 0, nil
+}
+
+func (me CrudExec) ResultingRow() error {
+	if me.err != nil {
+		return me.err
+	}
+
+	result, err := me.database.Exec(my.Sql, me.Args...)
+	if err != nil {
+		return err
+	}
+
+	id, err := result.LastInsertId()
+	if err != nil {
+		return err
+	}
+
+	if me.ds == nil {
+		return errors.New("Query does not contain a dataset")
+	}
+
+	me.clauses.From
+
+	ret.clauses.From
+
+	return me.ds.From
+
 }
 
 func (me CrudExec) scan(i interface{}, query string, args ...interface{}) (bool, error) {

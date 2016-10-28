@@ -42,7 +42,7 @@ func (me *crudExecTest) TestWithError() {
 	assert.NoError(t, err)
 	db := New("db-mock", mDb)
 	expectedErr := fmt.Errorf("crud exec error")
-	exec := newCrudExec(db, expectedErr, `SELECT * FROM "items"`)
+	exec := newCrudExec(db, expectedErr, `SELECT * FROM "items"`, nil)
 	var items []testCrudActionItem
 	assert.EqualError(t, exec.ScanStructs(&items), expectedErr.Error())
 	found, err := exec.ScanStruct(&testCrudActionItem{})
@@ -89,7 +89,7 @@ func (me *crudExecTest) TestScanStructs() {
 		WillReturnRows(sqlmock.NewRows([]string{"address", "name"}).FromCSVString("111 Test Addr,Test1\n211 Test Addr,Test2"))
 
 	db := New("db-mock", mDb)
-	exec := newCrudExec(db, nil, `SELECT * FROM "items"`)
+	exec := newCrudExec(db, nil, `SELECT * FROM "items"`, nil)
 
 	var items []testCrudActionItem
 	assert.EqualError(t, exec.ScanStructs(items), "goqu: Type must be a pointer to a slice when calling ScanStructs")
@@ -188,7 +188,7 @@ func (me *crudExecTest) TestScanStruct() {
 		WillReturnRows(sqlmock.NewRows([]string{"address", "name"}).FromCSVString("111 Test Addr,Test1"))
 
 	db := New("db-mock", mDb)
-	exec := newCrudExec(db, nil, `SELECT * FROM "items"`)
+	exec := newCrudExec(db, nil, `SELECT * FROM "items"`, nil)
 
 	var slicePtr []testCrudActionItem
 	var item testCrudActionItem
@@ -251,7 +251,7 @@ func (me *crudExecTest) TestScanVals() {
 		WillReturnRows(sqlmock.NewRows([]string{"id"}).FromCSVString("1\n2"))
 
 	db := New("db-mock", mDb)
-	exec := newCrudExec(db, nil, `SELECT "id" FROM "items"`)
+	exec := newCrudExec(db, nil, `SELECT "id" FROM "items"`, nil)
 
 	var id int64
 	var ids []int64
@@ -282,7 +282,7 @@ func (me *crudExecTest) TestScanVal() {
 		WillReturnRows(sqlmock.NewRows([]string{"id"}).FromCSVString("1"))
 
 	db := New("db-mock", mDb)
-	exec := newCrudExec(db, nil, `SELECT "id" FROM "items"`)
+	exec := newCrudExec(db, nil, `SELECT "id" FROM "items"`, nil)
 
 	var id int64
 	var ids []int64
