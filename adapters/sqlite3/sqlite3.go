@@ -49,10 +49,6 @@ func (me *DatasetAdapter) SupportsReturn() bool {
 	return false
 }
 
-func (ma *DatasetAdapter) SupportsLastRowID() bool {
-	return true
-}
-
 func (me *DatasetAdapter) SupportsLimitOnDelete() bool {
 	return true
 }

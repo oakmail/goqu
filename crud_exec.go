@@ -173,30 +173,26 @@ func (me CrudExec) ScanVal(i interface{}) (bool, error) {
 	return count != 0, nil
 }
 
-func (me CrudExec) ResultingRow() error {
+func (me CrudExec) ResultingRow() (*Dataset, error) {
 	if me.err != nil {
-		return me.err
+		return nil, me.err
 	}
 
-	result, err := me.database.Exec(my.Sql, me.Args...)
+	result, err := me.database.Exec(me.Sql, me.Args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	id, err := result.LastInsertId()
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	if me.ds == nil {
-		return errors.New("Query does not contain a dataset")
+		return nil, NewGoquError("Query does not contain a dataset")
 	}
 
-	me.clauses.From
-
-	ret.clauses.From
-
-	return me.ds.From
+	return me.database.From(me.ds.clauses.From.Expression()).Where(I("id").Eq(id)), nil
 
 }
 
