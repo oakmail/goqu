@@ -202,6 +202,8 @@ type (
 		//
 		//buf: The current SqlBuilder to write the sql to
 		InsertValuesSql(buf *SqlBuilder, values [][]interface{}) error
+		// Returns the SQL value for LastInsertId() value
+		GetRowIDColumnName() string
 	}
 )
 

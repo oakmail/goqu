@@ -76,9 +76,9 @@ var (
 		REGEXP_I_LIKE_OP:     []byte("~*"),
 		REGEXP_NOT_I_LIKE_OP: []byte("!~*"),
 	}
-	default_rangeop_lookup          = map[RangeOperation][]byte{
-		BETWEEN_OP:           []byte("BETWEEN"),
-		NBETWEEN_OP:          []byte("NOT BETWEEN"),
+	default_rangeop_lookup = map[RangeOperation][]byte{
+		BETWEEN_OP:  []byte("BETWEEN"),
+		NBETWEEN_OP: []byte("NOT BETWEEN"),
 	}
 	default_join_lookup = map[JoinType][]byte{
 		INNER_JOIN:         []byte(" INNER JOIN "),
@@ -97,6 +97,7 @@ var (
 	default_escape_runes = map[rune][]byte{
 		'\'': []byte("''"),
 	}
+	default_row_id_column_name = "id"
 )
 
 type (
@@ -194,6 +195,8 @@ type (
 		UseLiteralIsBools bool
 		//EscapedRunes is a map of a rune and the corresponding escape sequence in bytes. Used when escaping text types.
 		EscapedRunes map[rune][]byte
+		// Name of the rowid column
+		RowIDColumnName string
 	}
 )
 
@@ -244,6 +247,7 @@ func NewDefaultAdapter(ds *Dataset) Adapter {
 		TimeFormat:            time.RFC3339Nano,
 		UseLiteralIsBools:     true,
 		EscapedRunes:          default_escape_runes,
+		RowIDColumnName:       default_row_id_column_name,
 	}
 }
 
@@ -908,6 +912,10 @@ func (me *DefaultAdapter) ExpressionOrMapSql(buf *SqlBuilder, ex ExOr) error {
 		return err
 	}
 	return me.Literal(buf, expressionList)
+}
+
+func (me *DefaultAdapter) GetRowIDColumnName() string {
+	return me.RowIDColumnName
 }
 
 func init() {

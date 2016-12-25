@@ -192,7 +192,9 @@ func (me CrudExec) ResultingRow() (*Dataset, error) {
 		return nil, NewGoquError("Query does not contain a dataset")
 	}
 
-	return me.database.From(me.ds.clauses.From.Expression()).Where(I("id").Eq(id)), nil
+	return me.database.From(me.ds.clauses.From.Expression()).Where(
+		I(me.ds.Adapter().GetRowIDColumnName()).Eq(id),
+	), nil
 
 }
 

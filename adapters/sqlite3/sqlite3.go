@@ -39,6 +39,7 @@ var (
 		0:    []byte("\\x00"),
 		0x1a: []byte("\\x1a"),
 	}
+	row_id_column_name = "rowid"
 )
 
 type DatasetAdapter struct {
@@ -77,6 +78,7 @@ func newDatasetAdapter(ds *goqu.Dataset) goqu.Adapter {
 	def.BooleanOperatorLookup = operator_lookup
 	def.UseLiteralIsBools = false
 	def.EscapedRunes = escape_runes
+	def.RowIDColumnName = row_id_column_name
 	return &DatasetAdapter{def}
 }
 
