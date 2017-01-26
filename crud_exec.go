@@ -183,6 +183,12 @@ func (me CrudExec) ResultingRow() (*Dataset, error) {
 		return nil, err
 	}
 
+	if me.ds.Adapter().GetIsFuckingMySQL() {
+		return me.database.From(me.ds.clauses.From.Expression()).Where(
+			I("id").Eq(L("@INSERT_ID")),
+		), nil
+	}
+
 	id, err := result.LastInsertId()
 	if err != nil {
 		return nil, err

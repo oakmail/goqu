@@ -39,6 +39,7 @@ var (
 		0:    []byte("\\x00"),
 		0x1a: []byte("\\x1a"),
 	}
+	is_fucking_mysql = true
 )
 
 type DatasetAdapter struct {
@@ -76,6 +77,7 @@ func newDatasetAdapter(ds *goqu.Dataset) goqu.Adapter {
 	def.TimeFormat = time_format
 	def.BooleanOperatorLookup = operator_lookup
 	def.EscapedRunes = escape_runes
+	def.IsFuckingMySQL = true
 	return &DatasetAdapter{def}
 }
 

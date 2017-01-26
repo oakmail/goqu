@@ -98,6 +98,7 @@ var (
 		'\'': []byte("''"),
 	}
 	default_row_id_column_name = "id"
+	default_is_fucking_mysql   = false
 )
 
 type (
@@ -197,6 +198,8 @@ type (
 		EscapedRunes map[rune][]byte
 		// Name of the rowid column
 		RowIDColumnName string
+		// Whether database is fucking MySQL
+		IsFuckingMySQL bool
 	}
 )
 
@@ -248,6 +251,7 @@ func NewDefaultAdapter(ds *Dataset) Adapter {
 		UseLiteralIsBools:     true,
 		EscapedRunes:          default_escape_runes,
 		RowIDColumnName:       default_row_id_column_name,
+		IsFuckingMySQL:        default_is_fucking_mysql,
 	}
 }
 
@@ -916,6 +920,10 @@ func (me *DefaultAdapter) ExpressionOrMapSql(buf *SqlBuilder, ex ExOr) error {
 
 func (me *DefaultAdapter) GetRowIDColumnName() string {
 	return me.RowIDColumnName
+}
+
+func (me *DefaultAdapter) GetIsFuckingMySQL() bool {
+	return me.IsFuckingMySQL
 }
 
 func init() {

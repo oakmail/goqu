@@ -204,6 +204,8 @@ type (
 		InsertValuesSql(buf *SqlBuilder, values [][]interface{}) error
 		// Returns the SQL value for LastInsertId() value
 		GetRowIDColumnName() string
+		// Returns if the adapter is fucking MySQL
+		GetIsFuckingMySQL() bool
 	}
 )
 
