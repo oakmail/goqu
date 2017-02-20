@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"regexp"
 
+	"github.com/trtlio/goqu"
 	"gopkg.in/DATA-DOG/go-sqlmock.v1"
-	"gopkg.in/doug-martin/goqu.v3"
 )
 
 var driver *sql.DB
@@ -531,7 +531,7 @@ func ExampleDataset_Union() {
 	sql, _, _ = db.From("test").
 		Limit(1).
 		Union(db.From("test2").
-		Order(goqu.I("id").Desc())).
+			Order(goqu.I("id").Desc())).
 		ToSql()
 	fmt.Println(sql)
 	// Output:
@@ -554,7 +554,7 @@ func ExampleDataset_UnionAll() {
 	sql, _, _ = db.From("test").
 		Limit(1).
 		UnionAll(db.From("test2").
-		Order(goqu.I("id").Desc())).
+			Order(goqu.I("id").Desc())).
 		ToSql()
 	fmt.Println(sql)
 	// Output:
@@ -577,7 +577,7 @@ func ExampleDataset_Intersect() {
 	sql, _, _ = db.From("test").
 		Limit(1).
 		Intersect(db.From("test2").
-		Order(goqu.I("id").Desc())).
+			Order(goqu.I("id").Desc())).
 		ToSql()
 	fmt.Println(sql)
 	// Output:
@@ -601,7 +601,7 @@ func ExampleDataset_IntersectAll() {
 		From("test").
 		Limit(1).
 		IntersectAll(db.From("test2").
-		Order(goqu.I("id").Desc())).
+			Order(goqu.I("id").Desc())).
 		ToSql()
 	fmt.Println(sql)
 	// Output:

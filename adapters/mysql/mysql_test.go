@@ -10,7 +10,7 @@ import (
 	"github.com/c2fo/testify/assert"
 	"github.com/c2fo/testify/suite"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/stratexio/goqu"
+	"github.com/trtlio/goqu"
 )
 
 const (
