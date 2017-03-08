@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/trtlio/goqu"
+	"github.com/oakmail/goqu"
 	"gopkg.in/DATA-DOG/go-sqlmock.v1"
 )
 

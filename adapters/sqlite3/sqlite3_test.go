@@ -9,7 +9,7 @@ import (
 	"github.com/c2fo/testify/assert"
 	"github.com/c2fo/testify/suite"
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/trtlio/goqu"
+	"github.com/oakmail/goqu"
 )
 
 const (

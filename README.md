@@ -55,7 +55,7 @@ or hooks I would recommend looking at some of the great ORM libraries such as:
 ##Installation
 
 ```sh
-go get -u github.com/trtlio/goqu
+go get -u github.com/oakmail/goqu
 ```
 
 
@@ -64,17 +64,17 @@ go get -u github.com/trtlio/goqu
 
 In order to start using goqu with your database you need to load an adapter. We have included some adapters by default.
 
-1. Postgres - `import "github.com/trtlio/goqu/adapters/postgres"`
-2. MySQL - `import "github.com/trtlio/goqu/adapters/mysql"`
-3. SQLite3 - `import "github.com/trtlio/goqu/adapters/sqlite3"`
+1. Postgres - `import "github.com/oakmail/goqu/adapters/postgres"`
+2. MySQL - `import "github.com/oakmail/goqu/adapters/mysql"`
+3. SQLite3 - `import "github.com/oakmail/goqu/adapters/sqlite3"`
 
 Adapters in goqu work the same way as a driver with the database in that they register themselves with goqu once loaded.
 
 ```go
 import (
   "database/sql"
-  "github.com/trtlio/goqu"
-  _ "github.com/trtlio/goqu/adapters/postgres"
+  "github.com/oakmail/goqu"
+  _ "github.com/oakmail/goqu/adapters/postgres"
   _ "github.com/lib/pq"
 )
 ```
@@ -710,7 +710,7 @@ For example the code for the postgres adapter is fairly short.
 package postgres
 
 import (
-    "github.com/trtlio/goqu"
+    "github.com/oakmail/goqu"
 )
 
 //postgres requires a $ placeholder for prepared statements

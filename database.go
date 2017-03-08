@@ -32,8 +32,8 @@ type (
 //      import (
 //          "database/sql"
 //          "fmt"
-//          "github.com/trtlio/goqu"
-//          _ "github.com/trtlio/goqu/adapters/postgres"
+//          "github.com/oakmail/goqu"
+//          _ "github.com/oakmail/goqu/adapters/postgres"
 //          _ "github.com/lib/pq"
 //      )
 //

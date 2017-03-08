@@ -1,6 +1,6 @@
 package mysql
 
-import "github.com/trtlio/goqu"
+import "github.com/oakmail/goqu"
 
 var (
 	placeholder_rune    = '?'

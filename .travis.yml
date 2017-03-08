@@ -13,7 +13,7 @@ addons:
 
 before_script:
   - export DEFAULT_TRAVIS_BUILD_DIR=$TRAVIS_BUILD_DIR
-  - export TRAVIS_BUILD_DIR=$HOME/gopath/src/github.com/trtlio/goqu
+  - export TRAVIS_BUILD_DIR=$HOME/gopath/src/github.com/oakmail/goqu
   - mkdir -p $TRAVIS_BUILD_DIR
   - rm -rf $TRAVIS_BUILD_DIR
   - mv -vfT $DEFAULT_TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR
